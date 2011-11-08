@@ -52,7 +52,7 @@ def getSteering():
 
   # The velocity is along this direction, at full speed
   steering.velocity.normalize()
-  steering.velocity *= maxSpeed
+  steering.velocity \*= maxSpeed
 
   #Face in the direction we want to move
   character.orientation =
