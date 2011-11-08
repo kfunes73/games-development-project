@@ -1,0 +1,25 @@
+#labels Kinematic,movement,algorithms
+Kinematic Movement algorithms
+
+Kinematic movement algorithms use static datea (position and orientation, no velocitis) and output a desired velocity.  The output is often simply an on or off and  a target direction, moving at full speed or being stationary.  Kinematic algorithms do not use acceleration, although the abrupt changes in velocity might be smoothed over several frames.
+
+Many games simplify things even further and force the orientation of a character to be in the direction it is travelling. If the character is stationary, it faces either a preset direction or the last direction it was moving in.  If its movement algorithm returns a target velocity, then that is used to set its orientation. 
+
+This can be done simply with the function.
+
+************************************************************************
+
+def getNewOrientation(currentOrientation, velocity):
+
+
+  # Make sure we have a velocity
+    if velocity.length() > 0:
+
+  # Calculate orientation using an arc tangent of
+  # the velocity components.
+  return atan2(-static.x, static.z)
+
+  # Otherwise use the current orientation
+  else: return currentOrientation
+
+************************************************************************
