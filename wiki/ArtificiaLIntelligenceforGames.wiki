@@ -1,4 +1,4 @@
-#labels Kinematic,movement,algorithms,seek,flee
+#labels Kinematic,movement,algorithms,seek,flee,Arrive
 Kinematic Movement algorithms
 
 Kinematic movement algorithms use static datea (position and orientation, no velocitis) and output a desired velocity.  The output is often simply an on or off and  a target direction, moving at full speed or being stationary.  Kinematic algorithms do not use acceleration, although the abrupt changes in velocity might be smoothed over several frames.
@@ -83,4 +83,70 @@ steering.velocity = character.position - target.position
 
 The character will then move at maximum velocity in the opposite direction.
 
+______________________________________________________________________________________________________
+
+Arriving
+
+Full algorithm for Arriving
+
+**********************************************************************************************************
+
+# Holds the kinematic data for the character and target
+character
+target
+
+#Holds the max acceleration and speed of the character
+MaxAcceleration
+MaxSpeed
+
+#Holds the radius for arriving at the target
+targetRadius
+
+#Holds the radius for beginning to slow down
+slowRadius
+
+#Holds the time over which to achieve target speed
+timeToTarget = 0.1
+
+def getSteering(target):
+
+   #Create the structure to hold our output
+   steering = new SteeringOutput()
+
+  #Get the direction to the target
+  direction = target.position - character.position
+  distance = direction.length()
+
+  #Check if we are there, return no steering
+  if distance < targetRadius
+    return None
+
+  #If we are outside the slowRadius, then go max speed
+  if distance > slowRadius:
+  targetSpeed = maxSpeed
+
+  # otherwise calculate a scaled speed
+  else:
+     targetSpeed = maxSpeed (times) distance divided by slowRadius
+
+  # The target velocity combines speed and direction
+  targetVelocity = direction
+  targetVelocity.normalize()
+  targetVelocity x= targetSpeed
+
+  # Acceleration tries to get to the target velocity
+  steering.linear =
+  targetVelocity - character.velocity
+ steering.linear /= timeToTarget
+
+  # Check if the acceleration is too fast
+  if steering.linear.length() > maxAcceeleration:
+  steering.linear.normalize()
+  steering.linear x= maxAcceleration
+
+  # Output the steering
+  steering.angular = 0
+  return steering
+
+***********************************************************************************************************
 <g:plusone size="medium"></g:plusone>
