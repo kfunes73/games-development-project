@@ -23,3 +23,4 @@ def getNewOrientation(currentOrientation, velocity):
   else: return currentOrientation
 
 ************************************************************************
+<g:plusone size="medium"></g:plusone>
