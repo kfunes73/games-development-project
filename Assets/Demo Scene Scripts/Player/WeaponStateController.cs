@@ -15,11 +15,11 @@ public class WeaponStateController : MonoBehaviour {
 	public Transform aimTarget;
 	public float maxHorizontalAimAngle = 50f;
 	
-	public AnimationClip gunOnAnimation;
+/*	public AnimationClip gunOnAnimation;
 	public AnimationClip gunOffAnimation;
 	public AnimationClip reloadAnimation;
 	
-	public AnimationClip fireAnimation;
+	public AnimationClip fireAnimation;*/
 	
 	public Renderer muzzleFlash;
 	
@@ -33,33 +33,33 @@ public class WeaponStateController : MonoBehaviour {
 	
 	private CharacterMotor motor;
 	
-	bool inReload { get { return animation[reloadAnimation.name].enabled; } }
-	bool inTransition { get { return animation[gunOffAnimation.name].enabled || animation[gunOnAnimation.name].enabled;	} }
-	bool inFire { get { return animation[fireAnimation.name].enabled; } }
+//	bool inReload { get { return animation[reloadAnimation.name].enabled; } }
+//	bool inTransition { get { return animation[gunOffAnimation.name].enabled || animation[gunOnAnimation.name].enabled;	} }
+//	bool inFire { get { return animation[fireAnimation.name].enabled; } }
 	
 	// Set up upper body animation
-	private void SetupGunAnimation (AnimationClip animationClip) {
+	/*private void SetupGunAnimation (AnimationClip animationClip) {
 		AnimationState a = animation[animationClip.name];
-		a.wrapMode = WrapMode.Once;
-		a.layer = 1;
-		a.AddMixingTransform(spine);
-		a.AddMixingTransform(rightGun);
-	}
+				a.wrapMode = WrapMode.Once;
+				a.layer = 1;
+				a.AddMixingTransform(spine);
+				a.AddMixingTransform(rightGun);
+	}*/
 
 	// Use this for initialization
 	void Start () {
-		if (gunOnAnimation == null || gunOffAnimation == null || reloadAnimation == null || fireAnimation == null || muzzleFlash == null)
+	//	if (gunOnAnimation == null || gunOffAnimation == null || reloadAnimation == null || fireAnimation == null || muzzleFlash == null)
 			enabled = false;
 			
-		SetupGunAnimation(gunOnAnimation);
-		SetupGunAnimation(gunOffAnimation);
-		SetupGunAnimation(reloadAnimation);
+	/*	SetupGunAnimation(gunOnAnimation);
+			SetupGunAnimation(gunOffAnimation);
+			SetupGunAnimation(reloadAnimation);*/
 		
 		// setup additive fire animation
-		AnimationState fireAS = animation[fireAnimation.name];
-		fireAS.wrapMode = WrapMode.Once;
-		fireAS.layer = 101; // we put it in a separate layer than impact animations
-		fireAS.blendMode = AnimationBlendMode.Additive;
+		/*AnimationState fireAS = animation[fireAnimation.name];
+				fireAS.wrapMode = WrapMode.Once;
+				fireAS.layer = 101; // we put it in a separate layer than impact animations
+				fireAS.blendMode = AnimationBlendMode.Additive;*/
 		
 		motor = GetComponent(typeof(CharacterMotor)) as CharacterMotor;
 		
@@ -79,9 +79,9 @@ public class WeaponStateController : MonoBehaviour {
 	
 	// Put gun in holster
 	void HolsterGun () {
-		if (gunOn && !inReload && !inFire) {
-			animation.CrossFade(noAimLocomontionGroup); 
-			animation.CrossFade(gunOffAnimation.name);
+		if (gunOn) {
+			//animation.CrossFade(noAimLocomontionGroup); 
+			//animation.CrossFade(gunOffAnimation.name);
 			gunOn = false;
 			StartCoroutine (CrossFadeMaxSpeed (maxSpeedWithoutGun, 0.5f));
 		}
@@ -89,9 +89,9 @@ public class WeaponStateController : MonoBehaviour {
 	
 	// Take gun up from holster
 	void UnHolsterGun () {
-		if (!gunOn && !inReload && !inFire) {
-			animation.CrossFade(aimLocomotionGroup); 
-			animation.CrossFade(gunOnAnimation.name); 
+		if (!gunOn) {
+			//animation.CrossFade(aimLocomotionGroup); 
+			//animation.CrossFade(gunOnAnimation.name); 
 			gunOn = true;
 			StartCoroutine (CrossFadeMaxSpeed (maxSpeedWithGun, 0.5f));
 		}
@@ -103,8 +103,8 @@ public class WeaponStateController : MonoBehaviour {
 		if (!gunOn) {
 			UnHolsterGun();
 		}
-		else if (!inTransition && !inFire) {
-			animation.CrossFade(reloadAnimation.name);
+		else {
+			//animation.CrossFade(reloadAnimation.name);
 			bullets = clipSize;
 			
 			SendMessage("OnReload");
@@ -116,14 +116,14 @@ public class WeaponStateController : MonoBehaviour {
 		if (!gunOn)
 			UnHolsterGun();
 		// Else play fire if it's not in other state
-		else if (!inFire && !inTransition && !inReload && bullets > 0) {
-			AnimationState fireAS = animation[fireAnimation.name];
-			fireAS.wrapMode = WrapMode.Once;
-			fireAS.enabled = true;
-			// we do instant blend in - no crossfade
-			fireAS.weight = 1;
-			// skip to first frame (in order to make recoil look more instant)
-			//fireAS.time = 1.0F / fireAnimation.frameRate;
+		else if (bullets > 0) {
+			/*AnimationState fireAS = animation[fireAnimation.name];
+						fireAS.wrapMode = WrapMode.Once;
+						fireAS.enabled = true;
+						// we do instant blend in - no crossfade
+						fireAS.weight = 1;
+						// skip to first frame (in order to make recoil look more instant)
+						//fireAS.time = 1.0F / fireAnimation.frameRate;*/
 			bullets--;
 			
 			SendMessage("OnFire");
