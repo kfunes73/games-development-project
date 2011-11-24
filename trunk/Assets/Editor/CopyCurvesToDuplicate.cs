@@ -1,4 +1,4 @@
-using UnityEditor;
+/*using UnityEditor;
 using UnityEngine;
 using System.Collections;
 
@@ -42,3 +42,4 @@ public class CurvesTransferer {
         Debug.Log("Copying curves into "+copy.name+" is done");
 	}
 }
+*/

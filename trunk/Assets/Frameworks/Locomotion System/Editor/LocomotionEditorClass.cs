@@ -3,7 +3,7 @@ Copyright (c) 2008, Rune Skovbo Johansen & Unity Technologies ApS
 
 See the document "TERMS OF USE" included in the project folder for licencing details.
 */
-using UnityEditor;
+/*using UnityEditor;
 using UnityEngine;
 
 class LocomotionEditorClass {
@@ -110,3 +110,4 @@ class LocomotionEditorClass {
     }
 	
 }
+*/
