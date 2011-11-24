@@ -1,16 +1,17 @@
-static var GRENADE_AMMO = 0;
+/*
+Pavlo Bazilinskyy
+*/
 
 function OnControllerColliderHit(hit : ControllerColliderHit)
 {
-	if(hit.gameObject.tag == "crateGrenades")
+	if(hit.gameObject.tag == "grenadeBox")
 	{
-		//destroy the ammo box
+		//Destroy the box object from game world
 		Destroy(hit.gameObject);
 		
-		//add ammo to inventory
-		GRENADE_AMMO += 8;
-		print("YOU NOW HAVE "+ GRENADE_AMMO +" GRENADES");
-		GameObject.Find("g_Count").guiText.text = ""+GRENADE_AMMO;
+		//Add grenades to ammo
+		Weapons.GRENADE_AMMO += 10;
+		//GameObject.Find("g_Count").guiText.text = ""+GRENADE_AMMO;
 	}
 }
 
@@ -21,13 +22,13 @@ function Update()
 {	
 	var hit : RaycastHit;
 	
-	//check if we're colliding
+	//If a player collides
 	if(Physics.Raycast(transform.position, transform.forward, hit, rayCastLength))
 	{
-		//...with a door
+		//A player collided with a door
 		if(hit.collider.gameObject.tag == "door")
 		{
-			//open the door
+			//Open the door if collision was detected
 			hit.collider.gameObject.animation.Play("door_animation");
 		}
 	}
