@@ -1,22 +1,25 @@
-var grenadeSpeed = 3.0;
+/*
+Pavlo Bazilinskyy
+*/
+
+var grenadeSpeed = 2.8; //Velocity of a grenade
 var grenadePrefab:Transform; 
 
 function Update () 
 {
-	//find out if a fire button is pressed
+	//If a button Fire was pressed
 	if(Input.GetButtonDown("Fire1"))
 	{
-		//if(Collisions.GRENADE_AMMO > 0)
-		//{
-			//create the grenade prefab
+		if(Weapons.GRENADE_AMMO > 0)
+		{
+			//Create a grenade to shoot
 			var grenade = Instantiate(grenadePrefab, transform.position, Quaternion.identity);
 		
-			//add force to the prefab
+			//Give the grenade initial acceleration
 			grenade.rigidbody.AddForce(transform.forward * 2000);
 			
-			//Collisions.GRENADE_AMMO --;
-			//GameObject.Find("g_Count").guiText.text = ""+Collisions.GRENADE_AMMO;
-			//print("YOU NOW HAVE "+ Collisions.GRENADE_AMMO +" GRENADES");
-		//}
+			Weapons.GRENADE_AMMO --; //Reduce ammo
+			//GameObject.Find("g_Count").guiText.text = ""+Weapons.GRENADE_AMMO;
+		}
 	}
 }
